@@ -15,12 +15,17 @@ public class Cat {
 
 	public void kill()
 	{
-		numlives--;
-        System.out.println("cat live = " + numlives );
-        if (numlives == 0)
+
+        for (int i = 0; i < numlives; i++)
         {
-            System.out.println("dead");
+
+            System.out.println("cat live = " + i );
+            if (i == 8)
+            {
+                System.out.println("dead");
+            }
         }
+
 	}
 
 	public Cat(String name)
