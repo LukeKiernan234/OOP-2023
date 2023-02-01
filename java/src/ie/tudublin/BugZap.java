@@ -4,64 +4,71 @@ import processing.core.PApplet;
 
 public class BugZap extends PApplet
 {
+  int playerX = width/2;
+  int playerY = height + 350;
+  int playerSize = 50;
 
-	public void settings()
-	{
-		size(500, 500);
-	}
+  int bugX = width/2;
+  int bugY = 0;
+  int bugSize = 50;
+  int bugSpeed = 5;
 
-	public void setup() {
-		colorMode(HSB);
-		background(0);
+  boolean shooting = false;
 
-		x1 = random(0, width);
-		x2 = random(0, width);
-		y1 = random(0, height);
-		y2 = random(0, height);
+  public void settings()
+  {
+    size(500, 500);
+  }
 
-		float range = 5;
+  public void keyPressed()
+  {
+    if (keyCode == LEFT)
+    {
+      playerX -= 10;
+    }
+    if (keyCode == RIGHT)
+    {
+      playerX += 10;
+    }
+    if (key == ' ')
+    {
+      shooting = true;
+    }
+  }
 
-		x1dir = random(-range, range);
-		x2dir = random(-range, range);
-		y1dir = random(-range, range);
-		y2dir = random(-range, range);
+  public void setup() 
+  {
+    size(500, 500);
+  }
 
-		smooth();
-		
-	}
+  public void draw()
+  {
+    background(255);
 
-	float x1, y1, x2, y2;
-	float x1dir, x2dir, y1dir, y2dir;
-	float c = 0;
-	
-	public void draw()
-	{	
-		strokeWeight(2);
-		stroke(c, 255, 255);
-		c = (c + 1f) % 255;
-		line(x1, y1, x2, y2);
+    // Update the bug position
+    bugY += bugSpeed;
 
-		x1 += x1dir;
-		x2 += x2dir;
-		y1 += y1dir;
-		y2 += y2dir;
-		
-		if (x1 < 0 || x1 > width)
-		{
-			x1dir = - x1dir;
-		}
-		if (y1 < 0 || y1 > height)
-		{
-			y1dir = - y1dir;
-		}
+    // Draw the bug
+    fill(255, 0, 0);
+    ellipse(bugX, bugY, bugSize, bugSize);
+    fill(0, 255, 0);
+    ellipse(bugX - bugSize/4, bugY - bugSize/4, bugSize/2, bugSize/2);
+    fill(0);
+    ellipse(bugX - bugSize/4 + bugSize/8, bugY - bugSize/4, bugSize/8, bugSize/8);
+    ellipse(bugX - bugSize/4 - bugSize/8, bugY - bugSize/4, bugSize/8, bugSize/8);
+    stroke(0);
+    line(bugX - bugSize/4, bugY + bugSize/4, bugX - bugSize/2, bugY + bugSize);
+    line(bugX + bugSize/4, bugY + bugSize/4, bugX + bugSize/2, bugY + bugSize);
 
-		if (x2 < 0 || x2 > width)
-		{
-			x2dir = - x2dir;
-		}
-		if (y2 < 0 || y2 > height)
-		{
-			y2dir = - y2dir;
-		}
-	}
+    // Draw the player
+    fill(100, 0, 255);
+    rect(playerX, playerY, playerSize, playerSize/2);
+
+    if (shooting)
+    {
+	  line(playerX + playerSize/2, playerY, playerX + playerSize/2, 0);
+
+      shooting = false;
+    }
+  }
 }
