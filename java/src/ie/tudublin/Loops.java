@@ -12,6 +12,7 @@ public class Loops extends PApplet {
 
 	public void settings() {
 		size(1000, 1000);
+		//fullScreen(SPAN);
 	}
 
 	public void setup() {
@@ -23,6 +24,8 @@ public class Loops extends PApplet {
 		mode = key - '0';
 		println(mode);
 	}
+
+	float off = 0;
 
 	public void draw() {
     background(0);
@@ -56,50 +59,3 @@ public class Loops extends PApplet {
     }
   }
 }
-/*
- * 
- * package ie.tudublin;
- * 
- * import processing.core.PApplet;
- * 
- * public class Loops extends PApplet {
- * 
- * int mode = 0;
- * public void settings() {
- * size(1000, 1000);
- * }
- * 
- * public void setup() {
- * }
- * 
- * 
- * 
- * public void keyPressed() {
- * 
- * mode = key - '0';
- * println(mode);
- * }
- * 
- * public void draw() {
- * background(0);
- * fill(255);
- * 
- * switch (mode){
- * case 0:
- * 
- * break;
- * 
- * case 1:
- * 
- * break;
- * 
- * default:
- * break;
- * }
- * 
- * 
- * 
- * 
- * }
- * }
- */
