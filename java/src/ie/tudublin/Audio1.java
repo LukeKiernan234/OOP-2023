@@ -1,90 +1,55 @@
 package ie.tudublin;
 
-import java.util.ArrayList;
+import com.jogamp.common.os.AndroidVersion;
 
+import ddf.minim.AudioBuffer;
+import ddf.minim.AudioInput;
+import ddf.minim.AudioPlayer;
+import ddf.minim.Minim;
 import processing.core.PApplet;
 
-public class Audio1 extends PApplet
-{
-	Minim Minim;
+public class Audio1 extends PApplet {
+    Minim minim;
+    AudioInput ai;
+    AudioBuffer ab;
+    AudioPlayer ap;
 
-	public void settings()
-	{
-		size(500, 500);
-	}
+    public void settings() {
+        size(500, 500);
+    }
 
-	public void setup() {
-		colorMode(RGB);
-		background(0);
-		
-		smooth();
+    int frameize = 1024;
 
-		loadStars();
-		printStars();
-	}
+    public void setup() {
+        colorMode(HSB);
+        background(0);
 
-	void printStars()
-	{
-		for(int i = 0 ; i < stars.size() ; i ++)
-		{
-			println(stars.get(i));
-		}
-	}
+        minim = new Minim(this);
+        ai = minim.getLineIn(Minim.MONO, frameize, 44100, 16);// open the mic on computer read data and get cd quality
+                                                              // samples
+        ab = ai.mix;
+    }
 
-	void displayStars()
-	{
-		for(int i = 0 ; i < stars.size() ; i ++)
-		{
-			stars.get(i).render(this);
-		}
-	}
+    /* (non-Javadoc)
+     * @see processing.core.PApplet#draw()
+     */
+    public void draw() {
+        background(0);
+        stroke(255);
+        final float half = height / 2;
+        float cgap = 255 / ab.size();
+        float total = 0;
 
-	public void loadStars()
-	{
-		Table table = loadTable("HabHYG15ly.csv", "header");
- 		for(TableRow r:table.rows())
- 		{
- 			Star s = new Star(r);
- 			stars.add(s);
- 		}
-	}
+        for (int i = 0; i < ab.size(); i++) {
+            total += abs(ab.get(i));
+            stroke(cgap * i, 255, 255);
+            line(i, half, i, half + ab.get(i) * half);
+        }
+        float average = total / (float) ab.size();
+        float r = average * 200;
+        lerpedR = lerp(lerpedR, r, (float) 0.1);
+        circle(100, 200, lerpedR * 2);
 
-	public void drawGrid()
-	{
-		stroke(0, 255, 255);
-		float border = width * 0.1f;
-
-		for(int i = -5 ; i <= 5 ; i ++)
-		{
-			float x = map(i, -5, 5, border, width - border);
-			line(x, border, x, height - border);
-			line(border, x, width - border, x);
-
-			textAlign(CENTER, CENTER);
-			text(i, x, border * 0.5f);
-			text(i, border * 0.5f, x);
-		}
-
-		//float f = map(5, 0, 10, 100, 200);
-		//float f1 = map1(5, 0, 10, 100, 200);
-		
-	}
-
-	float map1(float a, float b, float c, float d, float e)
-	{
-		float r1 = c -b;
-		float r2 = e - d;
-
-		float howFar = a - b;
-
-		return d + ((howFar / r1) * r2);
-	}
-		
-	public void draw()
-	{	
-		strokeWeight(1);		
-
-		drawGrid();
-		displayStars();
-	}
+    }
+    float lerpedR = 0;
 }

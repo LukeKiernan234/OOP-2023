@@ -16,7 +16,9 @@ public class Loops extends PApplet {
 	}
 
 	public void setup() {
-		colourmode(HSB);
+		colormode(HSB);
+		background(0);
+		
 	}
 
 
