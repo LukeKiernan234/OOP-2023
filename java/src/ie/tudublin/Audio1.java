@@ -14,7 +14,7 @@ public class Audio1 extends PApplet
     AudioBuffer ab;
 
     int mode = 0;
-
+    float[] lerpedBuffer;
     float y = 0;
     float smoothedY = 0;
     float smoothedAmplitude = 0;
@@ -31,11 +31,21 @@ public class Audio1 extends PApplet
                 ap.play();
             }
         }
+        if (keyCode == '1') {
+            mode = 1;
+        }
+        if (keyCode == '2') {
+            mode = 2;
+        }
+        if (keyCode == '3') {
+            mode = 3;
+        }
+
 	}
 
     public void settings()
     {
-        size(1024, 1000, P3D);
+        size(900, 900, P3D);
         //fullScreen(P3D, SPAN);
     }
 
@@ -72,7 +82,8 @@ public class Audio1 extends PApplet
         {
             sum += abs(ab.get(i));
         }
-        average= sum / (float) ab.size();
+        float lerpedSum = lerp(off, sum, 0.1f);
+        average = lerpedSum / (float) ab.size();
 
         smoothedAmplitude = lerp(smoothedAmplitude, average, 0.1f);
         
@@ -84,19 +95,49 @@ public class Audio1 extends PApplet
                 background(0);
                 for(int i = 0 ; i < ab.size() ; i ++)
                 {
+                    //float c = map(smoothedAmplitude, 0, 1, 0, 255);
                     //float c = map(ab.get(i), -1, 1, 0, 255);
                     float c = map(i, 0, ab.size(), 0, 255);
                     stroke(c, 255, 255);
                     float f = ab.get(i) * halfH;
-                    line(i, halfH + f, i, halfH - f);                    
+                    line(i, halfH + f, halfH - f, i);                    
                 }
                 break;
-        case 1:
-            background(0);            
-            break;
+                case 1:
+                background(0);
+                for(int i = 0 ; i < ab.size() ; i ++)
+                {
+                    //float c = map(smoothedAmplitude, 0, 1, 0, 255);
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float c = map(i, 0, ab.size(), 0, 255);
+                    stroke(c, 255, 255);
+                    float f = ab.get(i) * halfH;
+                    line(i, halfH + f, i, halfH - f);    
+                }
+                break;
+                case 2:
+                background(0);
+                for(int i = 0 ; i < ab.size() ; i ++)
+                {
+                    float c = map(i, 0, ab.size(), 0, 255);
+                    stroke(c, 255, 255);
+                    float f = ab.get(i) * halfH;
+                    line(i, height - f, i, height + f);    
+                    line(i, f, i, -f);  
+                    line(0, halfH -f, i, f);
 
+                }
+                break;
+
+
+
+            }
         }
+    }
+
         
+        
+    
 
 
         
@@ -113,5 +154,5 @@ public class Audio1 extends PApplet
         circle(200, smoothedY, 50);
         */
 
-    }        
-}
+    
+
