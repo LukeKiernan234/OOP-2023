@@ -45,7 +45,7 @@ public class Audio1 extends PApplet
 
     public void settings()
     {
-        size(900, 900, P3D);
+        size(1000, 1000, P3D);
         //fullScreen(P3D, SPAN);
     }
 
@@ -124,7 +124,8 @@ public class Audio1 extends PApplet
                     float f = ab.get(i) * halfH;
                     line(i, height - f, i, height + f);    
                     line(i, f, i, -f);  
-                    line(0, halfH -f, i, f);
+                    line(0, i -f ,abs(ab.get(i)), i +f);
+                    line(0, i +f ,abs(ab.get(i)), i -f);
 
                 }
                 break;
