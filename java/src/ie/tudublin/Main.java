@@ -32,10 +32,6 @@ public class Main
 		String[] a = {"MAIN"};
         processing.core.PApplet.runSketch( a, new Audio1());
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 1b0b7d094e77630e4e1deee0f8d4242acb390c31
 	public static void audio2()
 	{
 		String[] a = {"MAIN"};
