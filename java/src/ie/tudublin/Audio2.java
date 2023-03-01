@@ -1,5 +1,7 @@
 package ie.tudublin;
 
+import com.jogamp.opengl.util.awt.AWTGLPixelBuffer.SingleAWTGLPixelBufferProvider;
+
 import ddf.minim.AudioBuffer;
 // import ddf.minim.AudioBuffer;
 import ddf.minim.AudioInput;
@@ -20,20 +22,34 @@ public class Audio2 extends PApplet{
     public void settings()
     {
         size(1024, 1024);
-        PitchSpeller ps = new PitchSpeller();
-        System.out.println(ps.spell(330));
-        System.out.println(ps.spell(420));
-        System.out.println(ps.spell(1980));
+    //    PitchSpeller ps = new PitchSpeller();
+    //    System.out.println(ps.spell(330));
+    //   System.out.println(ps.spell(420));
+    //    System.out.println(ps.spell(1980));
     }
 
     public void setup()
     {
         m = new Minim(this);
-        ai = m.getLineIn(Minim.MONO, width, 44100, 16);
-        ab = ai.mix;
-        lerpedBuffer = new float[width];
 
+        //ai = m.getLineIn(Minim.MONO, width, 44100, 16);
+        ap = m.loadFile("scale.wav", 1024);
+        ap.play();
+        ab = ap.mix;
+
+        lerpedBuffer = new float[width];
         fft = new FFT(width, 44100);
+        
+
+        for (int i = 0; i < ap.bufferSize(); i++)
+        {
+            PitchSpeller ps = new PitchSpeller();
+            System.out.println(ps.spell((i)));
+        }
+        
+    
+        
+    
     }
 
     float[] lerpedBuffer;
@@ -73,13 +89,17 @@ public class Audio2 extends PApplet{
         text("Freq: " + freq, 100, 100);
         */
 
+   
 
-        circle(800, half, 50);
-        circle(300, half, 50);
+
+
+
+
         
 
 
-
+        //circle(800, half, 50);
+        //circle(300, half, 50);
         //println(map(5, 2, 10, 1000, 2000));
         //println(map1(5, 2, 10, 1000, 2000));
 
