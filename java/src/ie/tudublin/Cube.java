@@ -4,18 +4,26 @@ import processing.core.PApplet;
 
 public class Cube {
     public float x, y;
-    public float size3;
+    public float size;
     public float c;
     public float rot;
 
-    public void render(PApplet p) {
-        p.stroke(c);
+    public void render(PApplet p)
+    {
+        p.stroke(c, 255, 255);
         p.strokeWeight(5);
 
-        p. noFill();
-        p.translate(width / 2, height / 2);
+        p.noFill();
+        p.pushMatrix();
+        p.translate(x, y);
+        
         p.rotateY(rot);
         p.rotateX(rot);
+
+        
+        p.box(size);
+        p.popMatrix();
+
     }
-    
+
 }
