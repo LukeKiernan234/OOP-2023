@@ -4,7 +4,8 @@ import processing.core.PApplet;
 
 public class YASC extends PApplet
 {
-	ship ship;
+	Ship Ship;
+	Ship Ship1;
 
 	public void settings()
 	{
@@ -13,17 +14,17 @@ public class YASC extends PApplet
 	}
 
 	public void setup() {
-		ship = new ship(width/2, height/2, size:50, 70, this);
+		Ship = new Ship(width/2, height/2, 50, 70, this);
 		colorMode(HSB);
 		
 	}
 
 	public void draw()
 	{	background(0);
-		ship.render();
-		ship.move();
+		Ship.render();
+		Ship.move();
 
-		ship1.render();
-		ship1.move();
+		Ship1.render();
+		Ship1.move();
 	}
 }
