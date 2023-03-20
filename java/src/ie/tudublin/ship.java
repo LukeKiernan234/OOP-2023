@@ -7,7 +7,7 @@ public class ship {
     private PVector pos;
     private PApplet p;
 
-    public ship(float x, float y, float size, int c, PApplet p) {
+    public ship(float x, float y, int c, float size, PApplet p) {
         pos = new PVector(x, y);
         this.size = size;
         this.c = c;
@@ -46,7 +46,9 @@ public class ship {
         p.pushMatrix();
         p.translate(pos.x, pos.y);
         p.rotate(rotation);
-        p.fill(c);
+        p.stroke(c);
+        p.strokeWeight(2);
+        p.noFill();
         p.triangle(-size, size, size, size, 0, -size);
         p.popMatrix();
     }
