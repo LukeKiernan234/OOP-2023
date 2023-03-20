@@ -9,6 +9,7 @@ public class YASC extends PApplet
 	public void settings()
 	{
 		size(500, 500);
+		
 	}
 
 	public void setup() {
@@ -17,10 +18,12 @@ public class YASC extends PApplet
 		
 	}
 
-	
-	
 	public void draw()
-	{	
-		
+	{	background(0);
+		ship.render();
+		ship.move();
+
+		ship1.render();
+		ship1.move();
 	}
 }
