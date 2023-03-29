@@ -1,11 +1,18 @@
 package ie.tudublin;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 
 public class YASC extends PApplet
 {
 	Ship ship;
 	Ship ship1;
+	
+	
+	
+	//Generic arraylist of type Bullet (they must be class objects not ints or Floats)
+	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 
 	public void settings()
@@ -27,5 +34,16 @@ public class YASC extends PApplet
 
 		ship1.render();
 		ship1.move();
+
+		for(int i = 0 ; i < bullets.size() ; i ++)
+		{
+			Bullet b = bullets.get(i);
+			b.render();
+			b.move();
+		}
+		for(Bullet b:bullets)//fo
+		fill(255);
+		p.txt("bullets: " + bullets.size(), 50, 50);
+
+		}
 	}
-}
