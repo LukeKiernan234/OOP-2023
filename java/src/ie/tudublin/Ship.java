@@ -79,13 +79,17 @@ public class Ship {
         }
         if (yasc.keys[' '])
         {
-            PVector inFront = PVector.add(pos,
+            //limit the rate of fire
+            if (p.frameCount % 10 == 0)
+            {
+                PVector inFront = PVector.add(pos,
                 PVector.mult(forward, 30)
                 );  
             
             Bullet b = new Bullet(inFront.x, inFront.y, rot, c, p);
 
             ((YASC)p).bullets.add(b);
+            }
         }
     }
 

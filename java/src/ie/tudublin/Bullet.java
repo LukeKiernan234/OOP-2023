@@ -48,6 +48,23 @@ public class Bullet {
 
     }
 
+    public int getTime() {
+        return 0;
+    }
+
+    public int getFrameCount() {
+        return 0;
+    }
+
+    void remove(){
+        
+        if (getTime() > 5)
+        {
+            ((YASC)p).bullets.remove(this);
+            //fade out
+            
+        }
+    }
 
 
 }
