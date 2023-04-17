@@ -71,10 +71,9 @@ public class Bullet {
         {
             ((YASC)p).bullets.remove(this);
         }
-    
+
     }
 
 
 
 }
-
